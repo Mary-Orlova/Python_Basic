@@ -9,5 +9,17 @@ violator_songs = [
     ['Blue Dress', 4.29],
     ['Clean', 5.83]
 ]
+new_playlist = []
+time = 0
+count = int(input('Сколько песен выбрать? '))
 
-# TODO здесь писать код
+for i_song in range(3):
+    print('Название', i_song + 1,'песни: ',end='')
+    name_song = input()
+    new_playlist.append(name_song)
+
+for i_name_song in violator_songs:
+    if i_name_song[0] in new_playlist:
+        time += i_name_song[1]
+print('Общее время звучания песен: ', round(time,2),'минуты.')
+
