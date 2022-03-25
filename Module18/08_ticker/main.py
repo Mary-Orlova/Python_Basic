@@ -1,13 +1,13 @@
 line = input('Первая строка: ')
-line_2 = input('Вторая строка: ')
+line_second = input('Вторая строка: ')
 count = 1
 
-if line == line_2:
+if line == line_second:
     print('Строки одинаковые')
 
 else:
     flag = False
-    for i in range(len(line_2)-1):
+    for i in range(len(line_second)-1):
         line_2 = line_2[-1] + line_2[:-1]
         if line_2 == line:
             flag = True

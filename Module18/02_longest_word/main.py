@@ -1,5 +1,5 @@
 text = input('Введите строку: ').split()
-longest_word = max([len(x) for x in text])
+longest_word = max([len(word) for word in text])
 print('Самое длинное слово: ',
-      *[x for x in text if len(x) == longest_word])
+      *[word for word in text if len(word) == longest_word])
 print('Длина этого слова: ', longest_word)

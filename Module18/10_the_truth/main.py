@@ -1,24 +1,24 @@
 alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 def get_secret(secret, key):
-    step_1 = ''
-    step_2 = ''
+    step_one = ''
+    step_two = ''
     for symbol in secret:
         if symbol in alphabet:
             num = alphabet.find(symbol)
-            step_1 += alphabet[num-key]
+            step_one += alphabet[num-key]
         else:
-            step_1 += symbol
+            step_one += symbol
     replace_index = 3
-    for word in step_1.split(' '):
+    for word in step_one.split(' '):
         new_word = ''
         for index in range(len(word)):
             new_word += (word[index - replace_index % len(word)])
         if new_word.endswith('/'):
             replace_index += 1
-        step_2 += new_word + ' '
-    translated_step_2 = step_2.replace('/', '\n')
-    return translated_step_2
+        step_two += new_word + ' '
+    translated_step_two = step_two.replace('/', '\n')
+    return translated_step_two
 
 
 secret = 'vujgvmCfb tj ufscfu ouib z/vhm jdjuFyqm jt fscfuu uibo jdju/jnqm ' \

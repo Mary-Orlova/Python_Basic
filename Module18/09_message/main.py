@@ -1,16 +1,16 @@
 message = input('Сообщение: ')
-message_2 = ''
+message_two = ''
 correct_message = ''
 
 for symbol in message:
     if symbol != ' ':
         if symbol.isalpha():
-            message_2 += symbol
+            message_two += symbol
         else:
-            correct_message += message_2[::-1] + symbol
-            message_2 = ''
+            correct_message += message_two[::-1] + symbol
+            message_two = ''
     else:
-        correct_message += message_2[::-1] + symbol
-        message_2 = ''
+        correct_message += message_two[::-1] + symbol
+        message_two = ''
 print(correct_message)
 

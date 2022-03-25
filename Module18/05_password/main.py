@@ -6,9 +6,7 @@ while True:
     for symbol in password: #цикл для подсчета кол-ва цифр
         if symbol in '1234567890':
             numbers += 1
-    if len(password) >= 8 \
-            and numbers >= 3 \
-            and not password.islower():
+    if len(password) >= 8 and numbers >= 3 and not password.islower():
         print('Это надежный пароль!')
         break
     else:

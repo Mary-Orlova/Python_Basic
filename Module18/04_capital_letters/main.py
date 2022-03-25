@@ -1,2 +1,3 @@
 text = input('Введите строку: ')
-print(text.title())
+correct_text = text.title()
+print(f'Результат: {correct_text}')
