@@ -6,9 +6,9 @@ data = {
         "total_out": 4
     },
     "count_txs": 2,
-    "tokens": [
+    "tokens": [ #тут нет ключей -есть индексы - словарь в списке
         {
-            "fst_token_info": {
+            "fst_token_info": { #в[0]-словарь,а по нужному ключу еще словарь
                 "address": "0x44444",
                 "name": "fdf",
                 "decimals": 0,
@@ -45,4 +45,20 @@ data = {
 }
 
 
-# TODO здесь писать код
+print('Вывод списков ключей и значений словаря:\n',data)
+data['ETH']['total_diff'] = 100
+# print('\n “ETH” добавить ключ “total_diff” со значением 100:\n',data['ETH'])
+
+data['tokens'][0]['fst_token_info']['name'] = 'doge'
+# print('Поменять значение ключа “name”:\n',data['tokens'][0]['fst_token_info'])
+
+data['ETH']['total_out'] = data['tokens'][0].pop('total_out')
+# Удалить “total_out” из tokens и присвоить его значение в “total_out” внутри “ETH”
+
+
+data['tokens'][1]['sec_token_info']['total_price'] = data['tokens'][1]['sec_token_info'].pop('price')
+# Внутри "sec_token_info" изменить название ключа “price” на “total_price
+
+#print(data)
+
+
