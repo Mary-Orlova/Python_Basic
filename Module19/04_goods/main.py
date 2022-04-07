@@ -24,4 +24,13 @@ store = {
     ],
 }
 
-# TODO здесь писать код
+for product in goods:
+    product_name = product
+    product_id = goods[product]
+    product_count, product_sum = 0, 0
+
+    for commodity in store[product_id]:
+        product_count += commodity['quantity']
+        product_sum += commodity['price'] * commodity['quantity']
+
+    print(product_name, '-', product_count, ' шт, стоимость', product_sum, 'рублей.' )
