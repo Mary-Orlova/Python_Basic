@@ -19,26 +19,21 @@ students = {
     }
 }
 
+def id_and_age():
+    for student in students:
+        id.append(student)
+        age.append(students[student]['age'])
 
-def f(dict):
-    lst = []
-    string = ''
-    for i in dict:
-        lst += (dict[i]['interests'])
-        string += dict[i]['surname']
-    cnt = 0
-    for s in string:
-        cnt += 1
-    return lst, cnt
+def find(dict):
+    interests, string = [], ''
+    for student in dict:
+        interests += dict[student]['interests']
+        string += dict[student]['surname']
+    return set(interests), len(string)
 
-
-pairs = []
-for i in students:
-    pairs += (i, students[i]['age'])
-
-
-my_lst = f(students)[0]
-l = f(students)[1]
-print(my_lst, l)
-
-# TODO исправить код
+id, age = [], []
+id_and_age()
+people = list(zip(id, age))
+print('ID студента - возраст: ',people)
+surname_and_interests,long_surname = find(students)
+print('Все интересы студентов:',surname_and_interests,'\nДлина всех фамилий студентов:',long_surname)

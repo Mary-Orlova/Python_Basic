@@ -4,4 +4,5 @@ players = {
     ("Rob", "Bobbin"): (12, 8, 2)
 }
 
-# TODO здесь писать код
+new_players = list(key + value for key, value in players.items())
+print(f'Результат работы программы:\n{new_players}')
