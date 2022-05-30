@@ -1,39 +1,32 @@
 import random
 
-
-def f(x, y):
+def division_x_y(x, y): #f
     x += random.randint(0, 10)
     y += random.randint(0, 5)
     return x / y
 
 
-def f2(x, y):
+def division_y_x(x, y): #f2
     x -= random.randint(0, 10)
     y -= random.randint(0, 5)
     return y / x
 
 
 try:
-    file = open('coordinates.txt', 'r')
-    for line in file:
-        nums_list = line.split()
-        res1 = f(int(nums_list[0]), int(nums_list[1]))
-        try:
-            res2 = f2(int(nums_list[0]), int(nums_list[1]))
-            try:
-                number = random.randint(0, 100)
-                file_2 = open('result.txt', 'w')
-                my_list = sorted([res1, res2, number])
-                file_2.write(' '.join(my_list))
-            except Exception:
-                print("Что-то пошло не так")
-        except Exception:
-            print("Что-то пошло не так со второй функцией")
-        finally:
-            file.close()
-            file_2.close()
-except Exception:
-    print("Что-то пошло не так с первой функцией")
+    file_1 = open('coordinates.txt', 'r')
+    file_2 = open('result.txt', 'w')
+    for line in file_1:
+        nums = line.split() #nums_list
+        result1 = division_x_y(int(nums[0]), int(nums[1]))
+        result2 = division_y_x(int(nums[0]), int(nums[1]))
+        number = random.randint(0, 100)
+        nums_sorted = sorted([result1, result2, number]) #my_list
+        file_2.write(''.join(str(nums_sorted)))
+        file_2.write('\n')
+except ValueError:
+    print("Внимание: Попытка передать x,y не в формате цифр")
+    print('В файл записаны только цифровые значения при верных парах')
+finally:
+    file_1.close()
+    file_2.close()
 
-
-# TODO отредактировать и исправить программу
