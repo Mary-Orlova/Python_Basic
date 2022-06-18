@@ -9,33 +9,43 @@ class Human:
            -счастье happy
            -кол-во съеденой еды summa_food
            """
-        self.name = name
-        self.satiety = satiety
-        self.happy = happy
-        self.summa_food = summa_food
+        self._name = name
+        self._satiety = satiety
+        self._happy = happy
+        self._summa_food = summa_food
+        self._is_alive = True
 
-    def eat(self, home):
+    def get_human(self):
+        return self._name, self._satiety, self._happy, self._summa_food
+
+    def set_eat(self, home):
         """Инициализация метода еды с помощью генерации random"""
         food = random.randint(25, 30)
         """Условие -если сгенерированный ур-нь еды выше или равен той, что дома:
         считать за кол-во еды максимальное кол-во еды из холодильника"""
-        if food >= home.food:
-            food = home.food
+        if food >= home._food:
+            food = home._food
         """Повышение ур-ня сытости"""
-        self.satiety += food
+        self._satiety += food
         """Снижение ур-ня еды в холодильнике"""
-        home.food -= food
+        home._food -= food
         """Подсчет съеденной еды"""
-        self.summa_food += food
+        self._summa_food += food
 
-    def play_cat(self, cat):
+    def get_eat(self, home):
+        return self._summa_food, self._satiety, home._food
+
+    def set_play_cat(self, cat):
         """Метод игры / гладить кота
         -увеличивает счастье на 5 единиц
         -понижает сытости человека и кота
         """
-        self.happy += 5
-        self.satiety -= 10
-        cat.satiety -= 10
+        self._happy += 5
+        self._satiety -= 10
+        cat._satiety -= 10
+
+    def get_play_cat(self, cat):
+        return self._happy, self._satiety, cat._satiety
 
 
 class Home:
@@ -46,34 +56,49 @@ class Home:
         -деньги money
         -грязь dirt
         """
-        self.food = food
-        self.money = money
-        self.dirt = dirt
-        self.cat_food = cat_food
+        self._food = food
+        self._money = money
+        self._dirt = dirt
+        self._cat_food = cat_food
+
+    def get_home(self):
+        return self._food, self._money, self._dirt, self._cat_food
 
 
 class Man(Human):
-    def __init__(self, name):
+    def __init__(self, name, satiety=30, happy=100, summa_food=0):
         """Инициализация муж
         присвоение имени self.name = 'Артём'
         """
         super().__init__(name)
-        self.name = 'Артём'
+        self._name = name
+        self._satiety = satiety
+        self._happy = happy
+        self._summa_food = summa_food
 
-    def play(self, satiety):
+    def get_human(self):
+        return self._name, self._satiety, self._happy, self._summa_food
+
+    def set_play(self):
         """Метод игры в приставку/ компьютер
         -увеличение уровня счастья
         -снижение сытости - 10 пунктов"""
-        self.satiety -= 10
-        self.happy += 20
+        self._satiety -= 10
+        self._happy += 20
 
-    def earn_money(self, home):
+    def get_play(self):
+        return self._satiety, self._happy
+
+    def set_earn_money(self, home):
         """Метод работы
         -увеличение кол-ва денег
         -снижение ур-ня сытости
         """
-        self.satiety -= 10
-        home.money += 150
+        self._satiety -= 10
+        home._money += 150
+
+    def get_earn_money(self, home):
+        return self._satiety, home._money
 
 
 class Woman(Human):
@@ -83,31 +108,40 @@ class Woman(Human):
         -счетчик кол-ва купленых шуб
         """
         super().__init__(name)
-        self.name = 'Агата'
-        self.amount_fur_coat = amount_fur_coat
+        self.name = name
+        self._amount_fur_coat = amount_fur_coat
 
-    def go_grossery(self, home):
+    def get_human(self):
+        return self._name, self._amount_fur_coat
+
+    def set_go_grossery(self, home):
         """Метод хождения за покупками(едой)
         -увеличение кол-ва еды для людей home.food
         -увеличение кол-ва еды для кота home.cat_food
         -уменьшение кол-ва денег home.money
         -снижение ур-ня сытости на 10 пунктов """
-        home.food += 50
-        home.cat_food += 20
-        home.money -= 70
-        self.satiety -= 10
+        home._food += 130
+        home._cat_food += 20
+        home._money -= 150
+        self._satiety -= 10
 
-    def go_shopping(self, home):
+    def get_go_grossery(self, home):
+        return home._food, home._cat_food, home._money, self._satiety
+
+    def set_go_shopping(self, home):
         """Метод покупки шубы
         -увеличение счастья
         -уменьшение денег
         -уменьшение сытости
         -увеличение счетчика покупки шуб
         """
-        self.happy += 60
-        home.money -= 350
-        self.satiety -= 10
-        self.amount_fur_coat += 1
+        self._happy += 60
+        home._money -= 350
+        self._satiety -= 10
+        self._amount_fur_coat += 1
+
+    def get_go_shopping(self, home):
+        return self._happy, home._money, self._satiety, self._amount_fur_coat
 
     def cleaning(self, home):
         """Метод уборки дома
@@ -116,10 +150,13 @@ class Woman(Human):
         clear = random.randint(1, 100)
         """Если сгенерированное число больше, чем грязи дома, то
         считаем уровень очищения за это число"""
-        if clear > home.dirt:
-            clear = home.dirt
-        home.dirt -= clear
-        self.satiety -= 10
+        if clear > home._dirt:
+            clear = home._dirt
+        home._dirt -= clear
+        self._satiety -= 10
+
+    def get_cleaning(self, home):
+        return self._satiety, home._dirt
 
 
 class Cat:
@@ -129,11 +166,15 @@ class Cat:
         -уровень сытости satiety
         -счетчик потребляемой еды summa_cat_food
         """
-        self.name = name
-        self.satiety = satiety
-        self.summa_cat_food = summa_cat_food
+        self._name = name
+        self._satiety = satiety
+        self._summa_cat_food = summa_cat_food
+        self._is_alive = True
 
-    def eat(self, home):
+    def get_cat(self):
+        return self._name, self._satiety, self._summa_cat_food
+
+    def set_eat(self, home):
         """Метод потребления кошачьей еды котом
         -генератор еды для кота
         -уровень сытости увеличивается
@@ -141,16 +182,22 @@ class Cat:
         food = random.randint(1, 10)
         """Если сгенерированное кол-во кошачьей еды больше,
         чем имеется - считаем максимальное число еды как ту, которую скармливаем"""
-        if food > home.cat_food:
-            food = home.cat_food
-        self.satiety += food * 2
-        self.summa_cat_food += food
-        home.cat_food -= food
+        if food > home._cat_food:
+            food = home._cat_food
+        self._satiety += food * 2
+        self._summa_cat_food += food
+        home._cat_food -= food
 
-    def tear_wallpaper(self, home):
+    def get_eat(self, home):
+        return self._satiety, self._summa_cat_food, home._cat_food
+
+    def set_tear_wallpaper(self, home):
         """Метод кота - драть обои
         -увеличивает грязь в доме
         -снижает уровень сытости
         """
-        home.dirt += 5
-        self.satiety -= 10
+        home._dirt += 5
+        self._satiety -= 10
+
+    def get_tear_wallpaper(self, home):
+        return home._dirt, self._satiety

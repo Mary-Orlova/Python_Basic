@@ -1,5 +1,24 @@
 import random
 
+class KillError(BaseException):
+    pass
+
+
+class DrunkError(BaseException):
+    pass
+
+
+class CarCrashError(BaseException):
+    pass
+
+
+class GluttonyError(BaseException):
+    pass
+
+
+class DepressionError(BaseException):
+    pass
+
 
 class Karma:
 
@@ -30,54 +49,16 @@ class Karma:
         if sudden_exception > 0 and sudden_exception < 11:
             self.__sudden_exception = sudden_exception
         else:
-            raise ValueError('Ошибка в очках кармы!')
+            raise ValueError('Ошибка!')
 
     def one_day(self):
         """ Информация о номере дня и обработка исключений """
         print('Сегодня заработано: {} оч. кармы'.format(self.__karma_day))
-        if self.__sudden_exception == 1 or self.__sudden_exception == 6:
-            try:
-                raise BaseException("KillError")
-            except BaseException as exc:
-                print(f'Исключение класса - {type(exc)}  | параметры {exc.args}')
-                with open('karma_log', 'a') as karma_log:
-                    karma_log.write(f'{type(exc)} {exc.args}\n')
-
-        if self.__sudden_exception == 2 or self.__sudden_exception == 7:
-            try:
-                raise BaseException("DrunkError")
-            except BaseException as exc:
-                print(f'Исключение класса - {type(exc)}')
-                with open('karma_log', 'a') as karma_log:
-                    karma_log.write(str(f'{type(exc)} {exc.args}\n'))
-
-        if self.__sudden_exception == 3 or self.__sudden_exception == 8:
-            try:
-                raise BaseException("CarCrashError")
-            except BaseException as exc:
-                print(f'Исключение класса - {type(exc)}  | параметры {exc.args}')
-                with open('karma_log', 'a') as karma_log:
-                    karma_log.write(str(f'{type(exc)} {exc.args}\n'))
-
-        if self.__sudden_exception == 4 or self.__sudden_exception == 9:
-            try:
-                raise BaseException("GluttonyError")
-            except BaseException as exc:
-                print(f'Исключение класса - {type(exc)}  | параметры {exc.args}')
-                with open('karma_log', 'a') as karma_log:
-                    karma_log.write(str(f'{type(exc)} {exc.args}\n'))
-
-        if self.__sudden_exception == 5 or self.__sudden_exception == 10:
-            try:
-                raise BaseException("DepressionError")
-            except BaseException as exc:
-                print(f'Исключение класса - {type(exc)}  | параметры {exc.args}')
-                with open('karma_log', 'a') as karma_log:
-                    karma_log.write(str(f'{type(exc)} {exc.args}\n'))
-
         return self.__karma_day
+        # return self.__karma_day, self.__sudden_exception
 
 
+karma = Karma()
 all_karma = 0
 MAX_KARMA = 500
 day = 1
@@ -86,6 +67,21 @@ while True:
     print('Прошел день № {}\nОбщее кол-во кармы: {}\n'.format(day, all_karma))
     if all_karma < MAX_KARMA:
         all_karma += Karma.one_day(Karma())
+        try:
+            if Karma.get_sudden_exception(Karma()) == 1 or Karma.get_sudden_exception(Karma()) == 6:
+                raise BaseException("KillError")
+            elif Karma.get_sudden_exception(Karma()) == 2 or Karma.get_sudden_exception(Karma()) == 7:
+                raise BaseException("DrunkError")
+            elif Karma.get_sudden_exception(Karma()) == 3 or Karma.get_sudden_exception(Karma()) == 8:
+                raise BaseException("CarCrashError")
+            elif Karma.get_sudden_exception(Karma()) == 4 or Karma.get_sudden_exception(Karma()) == 9:
+                raise BaseException("GluttonyError")
+            elif Karma.get_sudden_exception(Karma()) == 5 or Karma.get_sudden_exception(Karma()) == 10:
+                raise BaseException("DepressionError")
+        except BaseException as exc:
+            print('|Поймана ошибка|')
+            with open('karma_log', 'a') as karma_log:
+                karma_log.write(str(f'{type(exc)} {exc.args}\n'))
         day += 1
     else:
         break
