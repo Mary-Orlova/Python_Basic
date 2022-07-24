@@ -41,7 +41,7 @@ def log_methods(time_format: str) -> Callable:
                 method = getattr(cls, method)
                 if callable(method):
                     decorated_method = log_method(time_format, cls.__name__)(method)
-                    setattr(cls, method, decorated_method)
+                    setattr(cls, method.__name__, decorated_method))
         return cls
     return wrapped
 
